@@ -1,9 +1,10 @@
+import AnimationController from './AnimationController';
+import Flock from './Boids/Flock';
+
 import { initCanvas } from './utils/canvas';
-import Flock from './Flock';
 
-(() => {
-	const ctx = initCanvas('.main-canvas');
-	const flock = new Flock(150, ctx);
+const flock = new Flock(200);
 
-	flock.start();
-})();
+new AnimationController(initCanvas(), (ctx: CanvasRenderingContext2D) => {
+	flock.render(ctx);
+}).start();
