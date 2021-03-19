@@ -1,5 +1,6 @@
 import Vec2 from './utils/Vec2';
 import Boid from './Boid';
+import Enemy from './Boids/Enemy';
 
 export default class Flock {
 	public boids: Boid[] = [];
@@ -13,6 +14,8 @@ export default class Flock {
 
 	constructor(size: number, ctx: CanvasRenderingContext2D | null) {
 		for (let i = 0; i < size; i++) this.boids.push(new Boid());
+
+		this.boids.push(new Enemy());
 
 		this.ctx = ctx;
 	}
@@ -35,12 +38,23 @@ export default class Flock {
 			const alignment = new Vec2();
 			const seperation = new Vec2();
 
-			let boidsInView = 0;
+			let boidsInView: number = 0;
+			let nearest: [Boid | null, number] = [null, Infinity];
 
 			for (let other of this.boids) {
 				if (boid == other) continue;
 
 				const distVector = other.pos.copy().subtract(boid.pos);
+
+				// KILL!
+				if (boid.label === 'enemy' && distVector.length < boid.range) {
+					this.boids.splice(this.boids.indexOf(other), 1);
+				}
+
+				if (distVector.length < nearest[1]) {
+					nearest = [other, distVector.length];
+				}
+
 				const fov: number = (boid.fov * Math.PI) / 180;
 
 				const relAngle = Math.abs(
@@ -53,12 +67,14 @@ export default class Flock {
 				const inFOV: boolean =
 					relAngle < fov / 2 || relAngle > 2 * Math.PI - fov / 2;
 
-				if (inDistance && inFOV) {
+				if (inDistance && inFOV && other.label !== 'enemy') {
 					boidsInView++;
 
 					alignment.add(other.vel);
 					cohesion.add(other.pos);
 					seperation.add(distVector.inverse().divide(distVector.length));
+				} else if (inDistance && inFOV && other.label === 'enemy') {
+					boid.acc.add(distVector.copy().inverse().limit(0.32));
 				}
 			}
 
@@ -84,9 +100,15 @@ export default class Flock {
 					.multiply(this.seperation);
 			}
 
-			boid.acc.add(alignment);
-			boid.acc.add(cohesion);
-			boid.acc.add(seperation);
+			if (boid.label === 'enemy') {
+				const distVector = nearest[0]?.pos.copy().subtract(boid.pos);
+				if (distVector && distVector.length < boid.viewDistance)
+					boid.acc.add(distVector.setMagnitude(3));
+			} else {
+				boid.acc.add(seperation);
+				boid.acc.add(cohesion);
+				boid.acc.add(alignment);
+			}
 
 			boid.tick();
 			boid.render(this.ctx);

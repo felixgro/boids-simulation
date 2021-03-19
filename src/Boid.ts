@@ -6,11 +6,15 @@ export default class Boid {
 	public vel: Vec2;
 	public acc: Vec2;
 
+	public label: string = 'boid';
+
 	public color: string = '#fff';
 	public width: number = 6;
 	public height: number = 10;
 
-	public fov: number = 320;
+	public range: number = 0;
+
+	public fov: number = 360;
 	public viewDistance: number = 42;
 
 	public steeringForce: number = 0.2;

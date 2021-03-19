@@ -3,7 +3,7 @@ import Flock from './Flock';
 
 (() => {
 	const ctx = initCanvas('.main-canvas');
-	const flock = new Flock(50, ctx);
+	const flock = new Flock(150, ctx);
 
 	flock.start();
 })();
