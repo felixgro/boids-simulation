@@ -2,6 +2,8 @@ import Vec2 from '../Vec2';
 import Birdoid from './Birdoid';
 
 export default class Boid extends Birdoid {
+	public label: string = 'boid';
+
 	public cohesion: number = 1;
 	public alignment: number = 1;
 	public seperation: number = 1;
@@ -11,20 +13,26 @@ export default class Boid extends Birdoid {
 		const alignment = new Vec2();
 		const seperation = new Vec2();
 
+		const survival = new Vec2();
+
 		let boidsInView: number = 0;
+		let enemiesInView: number = 0;
 
 		for (let other of others) {
+			if (other === this) continue;
 			if (this.canView(other)) {
 				const distVector = other.pos.copy().subtract(this.pos);
 
-				alignment.add(other.vel);
-				cohesion.add(other.pos);
-				seperation.add(distVector.inverse().divide(distVector.length));
-
 				if (other.label == 'enemy') {
-					this.acc.add(distVector.copy());
+					survival.add(distVector.copy().divide(distVector.length));
+					enemiesInView++;
+				} else {
+					alignment.add(other.vel);
+					cohesion.add(other.pos);
+					seperation.add(distVector.inverse().divide(distVector.length));
+
+					boidsInView++;
 				}
-				boidsInView++;
 			}
 		}
 
@@ -50,8 +58,13 @@ export default class Boid extends Birdoid {
 				.multiply(this.seperation);
 		}
 
+		if (enemiesInView > 0) {
+			survival.divide(enemiesInView).inverse().setMagnitude(0.45);
+		}
+
 		this.acc.add(seperation);
 		this.acc.add(cohesion);
 		this.acc.add(alignment);
+		this.acc.add(survival);
 	}
 }

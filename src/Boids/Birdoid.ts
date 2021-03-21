@@ -2,16 +2,19 @@ import Vec2 from '../Vec2';
 import { randomVector } from '../utils/vector';
 
 export default class Birdoid {
+	public label: string = 'boid';
+
 	public pos: Vec2;
 	public vel: Vec2;
 	public acc: Vec2;
 
-	public label: string = 'boid';
+	public alive: boolean = true;
 
 	public color: string = '#fff';
 	public width: number = 6;
 	public height: number = 10;
 
+	public urge: number = 0;
 	public range: number = 0;
 
 	public fov: number = 360;
