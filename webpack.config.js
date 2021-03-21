@@ -1,8 +1,8 @@
 const path = require('path');
 
 module.exports = {
-	mode: 'production',
-	// devtool: 'eval-source-map', // for prod: source-map ohne eval
+	mode: 'development',
+	devtool: 'eval-source-map', // for prod: source-map
 	entry: './src/main.ts',
 	output: {
 		publicPath: 'public',
@@ -14,7 +14,6 @@ module.exports = {
 			{
 				test: /\.ts$/,
 				use: 'ts-loader',
-				include: [path.resolve(__dirname, 'src')],
 			},
 		],
 	},
