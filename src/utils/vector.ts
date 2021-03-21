@@ -1,4 +1,4 @@
-import Vec2 from './Vec2';
+import Vec2 from '../Vec2';
 
 export const dist = (v1: Vec2, v2: Vec2): number => {
 	const dx = Math.abs(v1.x - v2.x);

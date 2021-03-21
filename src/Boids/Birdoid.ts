@@ -1,16 +1,23 @@
-import Vec2 from './utils/Vec2';
-import { randomVector } from './utils/vector';
+import Vec2 from '../Vec2';
+import { randomVector } from '../utils/vector';
 
-export default class Boid {
+export default class Birdoid {
+	public label: string = 'boid';
+
 	public pos: Vec2;
 	public vel: Vec2;
 	public acc: Vec2;
+
+	public alive: boolean = true;
 
 	public color: string = '#fff';
 	public width: number = 6;
 	public height: number = 10;
 
-	public fov: number = 320;
+	public urge: number = 0;
+	public range: number = 0;
+
+	public fov: number = 360;
 	public viewDistance: number = 42;
 
 	public steeringForce: number = 0.2;
@@ -33,6 +40,25 @@ export default class Boid {
 		this.vel.add(this.acc);
 
 		this.acc.multiply(0);
+	}
+
+	flock(others: Birdoid[]) {}
+
+	canView(boid: Birdoid) {
+		const distVector = boid.pos.copy().subtract(this.pos);
+		const fov: number = (this.fov * Math.PI) / 180;
+
+		const relAngle = Math.abs(
+			Math.atan2(this.vel.y, this.vel.x) -
+				Math.atan2(distVector.y, distVector.x)
+		);
+
+		const inDistance: boolean = distVector.length <= this.viewDistance;
+
+		const inFOV: boolean =
+			relAngle < fov / 2 || relAngle > 2 * Math.PI - fov / 2;
+
+		return inDistance && inFOV && this !== boid;
 	}
 
 	stayInBounds() {
