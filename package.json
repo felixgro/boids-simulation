@@ -17,5 +17,8 @@
 		"webpack": "^5.26.3",
 		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.11.2"
+	},
+	"dependencies": {
+		"tweakpane": "^2.1.2"
 	}
 }

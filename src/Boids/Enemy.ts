@@ -1,3 +1,4 @@
+import Tweakpane from 'tweakpane';
 import Vec2 from '../Vec2';
 import Birdoid from './Birdoid';
 
@@ -12,10 +13,22 @@ export default class Enemy extends Birdoid {
 	public fov: number = 320;
 	public viewDistance: number = 300;
 
-	public urge: number = 1000;
+	public urge: number = 0;
 	public range: number = 6;
 
 	public target: Birdoid | null = null;
+
+	constructor(pane: Tweakpane) {
+		super();
+
+		const e = pane.addFolder({ title: 'Enemy' });
+		e.addMonitor(this, 'urge', {
+			label: 'Hunger',
+			view: 'graph',
+			min: -1000,
+			max: 1000,
+		});
+	}
 
 	public flock(others: Birdoid[]) {
 		const seperation = new Vec2();
@@ -41,12 +54,13 @@ export default class Enemy extends Birdoid {
 					other.label !== 'enemy'
 				) {
 					other.alive = false;
-					this.urge -= 1000;
+					this.urge -= 500;
+					if (this.urge < -1000) this.urge = -1000;
 				}
 			}
 		}
 
-		if (nearest[0] && this.urge >= 1000) {
+		if (nearest[0] && this.urge >= 500) {
 			const killUrge = nearest[0].pos
 				.copy()
 				.subtract(this.pos)
