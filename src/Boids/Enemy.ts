@@ -1,11 +1,11 @@
-import Tweakpane from 'tweakpane';
 import Vec2 from '../Vec2';
 import Birdoid from './Birdoid';
+import Pane from '../Pane';
 
 export default class Enemy extends Birdoid {
 	public label: string = 'enemy';
 
-	public color: string = 'red';
+	public color: string = '#ff0000';
 
 	public minSpeed: number = 2.6;
 	public maxSpeed: number = 4.3;
@@ -18,16 +18,9 @@ export default class Enemy extends Birdoid {
 
 	public target: Birdoid | null = null;
 
-	constructor(pane: Tweakpane) {
+	constructor() {
 		super();
-
-		const e = pane.addFolder({ title: 'Enemy' });
-		e.addMonitor(this, 'urge', {
-			label: 'Hunger',
-			view: 'graph',
-			min: -1000,
-			max: 1000,
-		});
+		Pane.addEnemy(this);
 	}
 
 	public flock(others: Birdoid[]) {
@@ -54,13 +47,12 @@ export default class Enemy extends Birdoid {
 					other.label !== 'enemy'
 				) {
 					other.alive = false;
-					this.urge -= 500;
-					if (this.urge < -1000) this.urge = -1000;
+					this.urge -= 250;
 				}
 			}
 		}
 
-		if (nearest[0] && this.urge >= 500) {
+		if (nearest[0] && this.urge >= 450) {
 			const killUrge = nearest[0].pos
 				.copy()
 				.subtract(this.pos)
@@ -68,9 +60,11 @@ export default class Enemy extends Birdoid {
 
 			this.acc.add(killUrge);
 		} else if (this.urge < 1000) {
-			this.urge++;
 			seperation.divide(boidsInView).limit(0.08);
 			this.acc.add(seperation);
 		}
+		this.urge++;
+		if (this.urge > 1000) this.urge = 1000;
+		if (this.urge < 0) this.urge = 0;
 	}
 }
