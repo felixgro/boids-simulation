@@ -1,51 +1,44 @@
+import Tweakpane from 'tweakpane';
 import Flock from './Boids/Flock';
 import Enemy from './Boids/Enemy';
-
-import Tweakpane from 'tweakpane';
-import { FolderApi } from '../node_modules/tweakpane/lib/api/folder';
 
 namespace Pane {
 	const pane = new Tweakpane({ title: 'Settings' });
 
-	const settings = { boids: 100, enemies: 1 };
+	let totalEnemies = 0;
+
+	const setup = { boids: 100, enemies: 1 };
+
+	const reset = () => {
+		totalEnemies = 0;
+		enemies.dispose();
+		enemies = pane.addFolder({ title: 'enemies', expanded: false });
+		Flock.getInstance().init(setup.boids, setup.enemies);
+	};
 
 	pane
-		.addInput(settings, 'boids', {
+		.addInput(setup, 'boids', {
 			min: 0,
 			max: 300,
 			step: 1,
 		})
-		.on('change', (e) => {
-			clear();
-			Flock.getInstance().init(settings.boids, settings.enemies);
-		});
-	pane.refresh();
+		.on('change', reset);
 
 	pane
-		.addInput(settings, 'enemies', {
+		.addInput(setup, 'enemies', {
 			min: 0,
-			max: 10,
+			max: 5,
 			step: 1,
 		})
-		.on('change', (e) => {
-			clear();
-			Flock.getInstance().init(settings.boids, settings.enemies);
-		});
+		.on('change', reset);
 
-	let totalEnemies = 0;
-	let folders: FolderApi[] = [];
-	const clear = () => {
-		totalEnemies = 0;
-		folders.forEach((f) => {
-			f.dispose();
-		});
-	};
+	let enemies = pane.addFolder({ title: 'enemies', expanded: false });
 
 	export function addEnemy(enemy: Enemy) {
 		totalEnemies++;
 
-		const folder = pane.addFolder({
-			title: `Enemy #${totalEnemies}`,
+		const folder = enemies.addFolder({
+			title: `enemy #${totalEnemies}`,
 			expanded: false,
 		});
 
@@ -69,8 +62,6 @@ namespace Pane {
 			min: 0,
 			max: 1000,
 		});
-
-		folders.push(folder);
 	}
 }
 
