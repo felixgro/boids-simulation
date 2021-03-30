@@ -13,6 +13,7 @@ export default class Birdoid {
 	public color: string = '#fff';
 	public width: number = 6;
 	public height: number = 10;
+	public showFOV: boolean = false;
 
 	public urge: number = 0;
 	public range: number = 0;
@@ -80,7 +81,7 @@ export default class Birdoid {
 			this.acc.add(new Vec2(0, -this.steeringForce));
 		}
 
-		this.acc.limit(1);
+		this.acc.limit(0.5);
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
@@ -90,6 +91,8 @@ export default class Birdoid {
 		// rotate in direction of velocity vector
 		const dirRad = Math.atan2(this.vel.y, this.vel.x) + Math.PI / 2;
 		ctx.rotate(dirRad);
+
+		if (this.showFOV) this.drawFOV(ctx);
 
 		// draw Boid as triangle
 		ctx.beginPath();
@@ -102,5 +105,40 @@ export default class Birdoid {
 
 		ctx.translate(-this.pos.x, -this.pos.y);
 		ctx.restore();
+	}
+
+	drawFOV(ctx: CanvasRenderingContext2D) {
+		ctx.strokeStyle = '#fff';
+		ctx.lineWidth = 0.2;
+
+		ctx.beginPath();
+
+		// Arc
+		const rad =
+			this.fov === 360 ? (359 * Math.PI) / 180 : (this.fov * Math.PI) / 180;
+		ctx.arc(
+			0,
+			0,
+			this.viewDistance,
+			Math.PI * 1.5 - rad / 2,
+			Math.PI * -0.5 + rad / 2
+		);
+
+		// Left Line
+		ctx.moveTo(0, 0);
+		ctx.lineTo(
+			Math.cos((90 * Math.PI) / 180 + rad / 2) * this.viewDistance,
+			Math.sin((-90 * Math.PI) / 180 + rad / 2) * this.viewDistance
+		);
+
+		// Right Line
+		ctx.moveTo(0, 0);
+		ctx.lineTo(
+			Math.cos((90 * Math.PI) / 180 - rad / 2) * this.viewDistance,
+			Math.sin((-90 * Math.PI) / 180 - rad / 2) * this.viewDistance
+		);
+
+		ctx.stroke();
+		ctx.closePath();
 	}
 }

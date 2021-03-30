@@ -59,7 +59,7 @@ export default class Boid extends Birdoid {
 		}
 
 		if (enemiesInView > 0) {
-			survival.divide(enemiesInView).inverse().setMagnitude(0.45);
+			survival.divide(enemiesInView).inverse().setMagnitude(0.3);
 		}
 
 		this.acc.add(seperation);

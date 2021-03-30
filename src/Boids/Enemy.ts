@@ -47,7 +47,7 @@ export default class Enemy extends Birdoid {
 					other.label !== 'enemy'
 				) {
 					other.alive = false;
-					this.urge -= 250;
+					this.urge -= 300;
 				}
 			}
 		}
@@ -56,6 +56,7 @@ export default class Enemy extends Birdoid {
 			const killUrge = nearest[0].pos
 				.copy()
 				.subtract(this.pos)
+				.add(nearest[0].vel)
 				.setMagnitude(0.28);
 
 			this.acc.add(killUrge);

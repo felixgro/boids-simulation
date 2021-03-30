@@ -1,6 +1,5 @@
-import Tweakpane from 'tweakpane';
+import Pane from '../Pane';
 import Birdoid from './Birdoid';
-
 import Boid from './Boid';
 import Enemy from './Enemy';
 
@@ -9,20 +8,19 @@ export default class Flock {
 
 	private static instance: Flock;
 
-	private constructor() {
-		this.init(100, 1);
-	}
-
 	static getInstance() {
-		if (!Flock.instance) Flock.instance = new Flock();
+		if (!Flock.instance)
+			Flock.instance = new Flock().init(...Pane.getInitialState());
 
 		return Flock.instance;
 	}
 
-	init(size: number, enemies: number) {
+	init(size: number = 10, enemies: number = 1) {
 		this.boids = [];
 		for (let i = 0; i < size; i++) this.boids.push(new Boid());
 		for (let i = 0; i < enemies; i++) this.boids.push(new Enemy());
+
+		return this;
 	}
 
 	render(ctx: CanvasRenderingContext2D) {
