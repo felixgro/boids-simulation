@@ -1,6 +1,6 @@
 # Boids Flocking Simulation
 
-My own implementation of the Boids-Algorithm featuring reproduction & predetors along with an instinctive UI to tweak relevant proterties.
+My implementation of the Boids-Algorithm featuring reproduction & predetors along with an instinctive UI to tweak relevant proterties.
 
 [Live demo](https://boids-simulation.vercel.app/)
 
