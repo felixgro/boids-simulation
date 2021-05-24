@@ -7,6 +7,7 @@
 	width: 100vw;
 	color: #171724;
 }
+
 a {
 	font-family: 'Menlo';
 	position: fixed;
@@ -20,13 +21,12 @@ a {
 	display: flex;
 	align-items: center;
 }
+
 a:hover {
 	text-decoration: underline;
 }
+
 a svg {
 	margin-top: -2px;
 	margin-right: 5px;
-}
-.tp-dfwv {
-	width: 280px !important;
 }
