@@ -1,6 +1,5 @@
 import Vec2 from '../Vec2';
 import Birdoid from './Birdoid';
-import Pane from '../Pane';
 
 export default class Enemy extends Birdoid {
 	public label: string = 'enemy';
@@ -20,7 +19,6 @@ export default class Enemy extends Birdoid {
 
 	constructor() {
 		super();
-		Pane.addEnemy(this);
 	}
 
 	public flock(others: Birdoid[]) {

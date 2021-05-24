@@ -1,4 +1,3 @@
-import Pane from '../Pane';
 import Birdoid from './Birdoid';
 import Boid from './Boid';
 import Enemy from './Enemy';
@@ -10,7 +9,7 @@ export default class Flock {
 
 	static getInstance() {
 		if (!Flock.instance)
-			Flock.instance = new Flock().init(...Pane.getInitialState());
+			Flock.instance = new Flock().init(10, 0);
 
 		return Flock.instance;
 	}
