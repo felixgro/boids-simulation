@@ -1,10 +1,11 @@
-import AnimationController from './AnimationController';
-import Flock from './Boids/Flock';
+import { animate } from '@felixgro/animate-canvas';
+import Controller from './Controller';
 
-import { initCanvas } from './utils/canvas';
+const flock = Controller.getInstance().flock;
 
-const flock = Flock.getInstance();
+const animation = animate('.main-canvas')
+	.eachFrame(flock.render.bind(flock))
+	.start();
 
-new AnimationController(initCanvas(), (ctx: CanvasRenderingContext2D) => {
-	flock.render(ctx);
-}).start();
+document.onkeydown = () => animation.toggle();
+window.onresize = () => animation.resizeCanvas();
