@@ -2,21 +2,21 @@
 	"name": "boids",
 	"version": "1.0.0",
 	"description": "",
+	"keywords": [],
 	"main": "index.js",
 	"scripts": {
-		"build": "webpack",
-		"watch": "webpack-dev-server",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "esbuild src/main.ts --bundle --minify --sourcemap --target=chrome58,firefox57,safari11,edge16 --outfile=public/bundle.js"
 	},
-	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"dependencies": {},
+	"dependencies": {
+		"@felixgro/animate-canvas": "^1.0.0",
+		"@felixgro/vec2": "^1.1.1",
+		"dat.gui": "^0.7.7"
+	},
 	"devDependencies": {
-		"ts-loader": "^8.0.18",
-		"typescript": "^4.2.3",
-		"webpack": "^5.26.3",
-		"webpack-cli": "^3.3.12",
-		"webpack-dev-server": "^3.11.2"
+		"@types/dat.gui": "^0.7.6",
+		"esbuild": "^0.12.1",
+		"typescript": "^4.2.3"
 	}
 }
