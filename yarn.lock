@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@felixgro/animate-canvas@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@felixgro/animate-canvas/-/animate-canvas-1.0.0.tgz#59d45d4b7e7d6c853eaf4a2d845ad30b6b9ba800"
-  integrity sha512-t1tPqhy8bxy2c4Qf+Yu1oVsKEP3HcQTznMfDODcQzbDuYlAvNOyAxK+GzEqglFP9iHiDrqIHzv2EaK3dteWrIQ==
+"@felixgro/animate-canvas@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@felixgro/animate-canvas/-/animate-canvas-1.2.0.tgz#fd3c7ceed22b54b53dd043351754b580e6649be9"
+  integrity sha512-sO0MnNBB09xaO0KR25FAdtVl6AcxWg8nvRcQ1mAFvbnjVj/NDcX6HOTXsKWVNM8e0R2p+zLozpSw5WuClU/+2Q==
 
 "@felixgro/vec2@^1.1.1":
   version "1.1.1"

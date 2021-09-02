@@ -11,7 +11,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@felixgro/animate-canvas": "^1.0.0",
+		"@felixgro/animate-canvas": "1.2.0",
 		"@felixgro/vec2": "^1.1.1",
 		"dat.gui": "^0.7.7"
 	},
