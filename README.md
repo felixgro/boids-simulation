@@ -1,5 +1,5 @@
 # boids-simulation
-Implementation of Craig Raynold’s boids algorithm written in Typescript.
+Implementation of Craig Raynold’s boids algorithm written in Typescript.<br>
 [_See Demo_](https://felixgro.github.io/boids-simulation/)
 
 ## Boid.. what?
@@ -14,13 +14,13 @@ In the original implementation each Boid makes decicions based on the following 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Installation
-Download the project using git:
+Download the project using [git](https://git-scm.com/).
 ```bash
 git clone https://github.com/felixgro/boids-simulation.git
 cd boids-simulation
 ```
 
-Install Dependencies and build using yarn or npm:
+Install Dependencies and build using [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/).
 ```bash
 npm i
 # or
