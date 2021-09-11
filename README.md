@@ -10,13 +10,6 @@ In the original implementation each Boid makes decicions based on the following 
 - **Cohesion:** Each Boid attempts to move towards the average position of other Boids within it’s view.
 - **Seperation:** Each Boid attempts to maintain a reasonable amount of distance between itself and any nearby Boids in order to prevent overcrowding.
 
-## Features
-- Tweak relevant variables and see changes happen live using dat.gui
-- Visualize all applied forces to better understand the algorithm
-
-## Screenshots
-![Example screenshot](./img/screenshot.png)
-
 ## Setup
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
