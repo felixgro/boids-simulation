@@ -1,18 +1,39 @@
-# Boids Flocking Simulation
+# boids-simulation
+Implementation of Craig Raynold’s boids algorithm written in Typescript.
+[_See Demo_](https://felixgro.github.io/boids-simulation/)
 
-My implementation of the Boids-Algorithm featuring reproduction & predetors along with an instinctive UI to tweak relevant proterties.
+## Boid.. what?
+The Boid (bird-oid object) alogrithm simulates flocking behaviour of birds & was originally developed by Craig Raynolds in 1986.
 
-[Live demo](https://boids-simulation.vercel.app/)
+In the original implementation each Boid makes decicions based on the following 3 rules:
+- **Alignment:** Boids try to change their position in order to correspond with the average alignment of other Boids within it’s view.
+- **Cohesion:** Each Boid attempts to move towards the average position of other Boids within it’s view.
+- **Seperation:** Each Boid attempts to maintain a reasonable amount of distance between itself and any nearby Boids in order to prevent overcrowding.
 
-## Boid... what ?
+## Features
+- Tweak relevant variables and see changes happen live using dat.gui
+- Visualize all applied forces to better understand the algorithm
 
-The Boid (bird-oid object) Alogrithm simulates flocking behaviour of birds. It was originally developed by Craig Raynolds in 1986.
+## Screenshots
+![Example screenshot](./img/screenshot.png)
 
-In the original implementation each Boid makes decicions based on 3 rules:
-Rule | Description
-------------- | -------------
-Alignment | Boids try to change their position in order to correspond with the average alignment of other Boids within their view.
-Cohesion | Every Boid attempts to move towards the average position of other boids within their view.
-Seperation | Each Boid attempts to maintain a reasonable amount of distance between itself and any nearby Boids in order to prevent overcrowding.
+## Setup
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-[Online Ressource](https://www.red3d.com/cwr/boids/)
+### Installation
+Download the project using git:
+```bash
+git clone https://github.com/felixgro/boids-simulation.git
+cd boids-simulation
+```
+
+Install Dependencies and build using yarn or npm:
+```bash
+npm i
+# or
+yarn
+
+npm run build
+# or
+yarn build
+```
